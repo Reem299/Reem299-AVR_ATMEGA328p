@@ -5,6 +5,9 @@
  * Author : Reem Raouf
  */ 
 
+//SMART COOLING SYSTEM 
+//Read the room temperature using an appropriate sensor, then turn on a fan or air conditioner when the temperature exceeds 30oC and display the read temperature on an LCD.
+//Add an ‘automatic turnoff’ option where the fan or air conditioner is automatically turned OFF after a specific time interval.
 
 #include "std_types.h"
 #include "MCAL/DIO/DIO.h"
@@ -61,16 +64,15 @@ int main(void) {
         LCD_moveCursor(0, 0);
         lcd_string(buffer);  // Display the formatted temperature string on the LCD.
 
-        if (temperature >= 30 && !FanOn) { // Temperature exceeds 30�C and fan is not already on
+        if (temperature >= 30 && !FanOn) { // Temperature exceeds 30°C and fan is not already on
             fn_setPINvalue(PORTD_ID, PIN6_ID, HIGH); // Turn on fan
             FanOn = 1; // Set fan on flag
            timer_count = 0; // Reset timer count
-        } else if (temperature < 30 && FanOn) { // Temperature is 30�C or below and fan is on
+        } else if (temperature < 30 && FanOn) { // Temperature is 30°C or below and fan is on
             fn_setPINvalue(PORTD_ID, PIN6_ID, LOW); // Turn off fan
             FanOn = 0; // Reset fan on flag
         }
         _delay_ms(500); // Delay 1 second
     }
-
     return 0;
 }
